@@ -2,18 +2,21 @@ from django.shortcuts import render
 from rest_framework import generics
 from blog.models import Post
 from .serializers import PostSerializer
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly,SAFE_METHODS,BasePermission,DjangoModelPermissions,IsAuthenticated
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, SAFE_METHODS, BasePermission, DjangoModelPermissions, IsAuthenticated
 from rest_framework import viewsets
 from rest_framework import filters
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 
+
 class PostUserWritePermission(BasePermission):
-    message='Редактировать пост может только автор'
+    message = 'Редактировать пост может только автор'
+
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
-        return obj.author==request.user
+        return obj.author == request.user
+
 
 class PostList(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -22,15 +25,11 @@ class PostList(viewsets.ModelViewSet):
     def get_object(self, queryset=None, **kwargs):
         item = self.kwargs.get('pk')
         return get_object_or_404(Post, slug=item)
+    # вернуть пост который соответствует запросу т.е. slug == запросу
     # Define Custom Queryset
+
     def get_queryset(self):
         return Post.objects.all()
-   #  def destroy(self, request, pk=None):
-   #      instance = self.get_object()
-   #      self.perform_destroy(instance)
-
-
-
 
 
 # class PostList(viewsets.ViewSet):
@@ -62,7 +61,7 @@ class PostList(viewsets.ModelViewSet):
 #     pass
 
 # def destroy(self, request, pk=None):
-#     pass       
+#     pass
 
 # class PostList(generics.ListCreateAPIView): #ListCreateAPIView используется для ендпоинтов(чтения/записи) (get/post) предоставляет коллекцию экземпляров модели
 #     queryset=Post.postobjects.all() #queryset набор запросов (postobjects - кастомный выбор опубликованных постов)

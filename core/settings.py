@@ -133,12 +133,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-#API permissions
+# API permissions
 # AllowAny
-# IsAuthenticated 
-# IsAdminUser 
-# IsAuthenticatedOrReadOnly 
+# IsAuthenticated
+# IsAdminUser
+# IsAuthenticatedOrReadOnly
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -155,8 +154,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-#custom user model
-AUTH_USER_MODEL='users.NewUser'
+# custom user model
+AUTH_USER_MODEL = 'users.NewUser'
 
 
 SIMPLE_JWT = {
@@ -174,7 +173,7 @@ SIMPLE_JWT = {
     "JSON_ENCODER": None,
     "JWK_URL": None,
     "LEEWAY": 0,
-    
+
 
     "AUTH_HEADER_TYPES": ("JWT"),
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
@@ -186,6 +185,5 @@ SIMPLE_JWT = {
     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
 
     "TOKEN_OBTAIN_SERIALIZER": "core.serializers.MyTokenObtainPairSerializer",
-    
-}
 
+}
