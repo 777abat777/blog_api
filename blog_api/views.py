@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from blog.models import Post
-from .serializers import PostSerializer
+from blog.models import Post, Comment
+from .serializers import PostSerializer, CommentSerializer
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, SAFE_METHODS, BasePermission, DjangoModelPermissions, IsAuthenticated
 from rest_framework import viewsets
 from rest_framework import filters
@@ -30,6 +30,20 @@ class PostList(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Post.objects.all()
+
+
+class CommentList(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CommentSerializer
+
+    def get_object(self, queryset=None, **kwargs):
+        item = self.kwargs.get('pk')
+        return get_object_or_404(Post, id=item)
+    # вернуть пост который соответствует запросу т.е. slug == запросу
+    # Define Custom Queryset
+
+    def get_queryset(self):
+        return Comment.objects.all()
 
 
 # class PostList(viewsets.ViewSet):
