@@ -4,7 +4,7 @@ from django.conf import settings
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.user_name')
+   #  owner = serializers.ReadOnlyField(source='owner.user_name')
 
     class Meta:
         model = Comment

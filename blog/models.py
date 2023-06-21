@@ -61,8 +61,8 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    body = models.TextField(blank=False)
+    created = models.DateTimeField(default=timezone.now)
+    body = models.TextField()
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='comments', on_delete=models.CASCADE)
     post = models.ForeignKey(

@@ -33,12 +33,12 @@ class PostList(viewsets.ModelViewSet):
 
 
 class CommentList(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+   #  permission_classes = [IsAuthenticated]
     serializer_class = CommentSerializer
 
-    def get_object(self, queryset=None, **kwargs):
-        item = self.kwargs.get('pk')
-        return get_object_or_404(Post, id=item)
+   #  def get_object(self, queryset=None, **kwargs):
+   #      item = self.kwargs.get('pk')
+   #      return get_object_or_404(Post, id=item)
     # вернуть пост который соответствует запросу т.е. slug == запросу
     # Define Custom Queryset
 
