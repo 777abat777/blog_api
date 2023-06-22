@@ -6,6 +6,17 @@ from django.utils import timezone
 from django.template.defaultfilters import slugify  # new
 # Create your models here.
 
+from django.utils.translation import gettext_lazy
+
+
+def upload_to(instance, filename):
+    return 'posts/{filename}'.format(filename=filename)
+
+
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return "comments/{filename}".format(filename=filename)
+
 
 class Category(models.Model):
     categoryOptions = (
@@ -33,6 +44,8 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, to_field="name")
     title = models.TextField(max_length=300)
+    image = models.ImageField(
+        gettext_lazy("Image"), upload_to=upload_to, default='posts/default.jpg', null=True)
     # excerpt отрывок, null=True может быть пустым
     excerpt = models.TextField(null=True)
     content = models.TextField()
@@ -67,6 +80,8 @@ class Comment(models.Model):
         settings.AUTH_USER_MODEL, related_name='comments', on_delete=models.CASCADE)
     post = models.ForeignKey(
         'Post', related_name='comments', on_delete=models.CASCADE)
+    image = models.ImageField(
+        gettext_lazy("Image"), upload_to=user_directory_path, null=True)
 
     class Meta:
         ordering = ['created']

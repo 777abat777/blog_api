@@ -4,11 +4,11 @@ from django.conf import settings
 
 
 class CommentSerializer(serializers.ModelSerializer):
-   #  owner = serializers.ReadOnlyField(source='owner.user_name')
+    author = serializers.ReadOnlyField(source='owner.user_name')
 
     class Meta:
         model = Comment
-        fields = ['id', 'body', 'owner', 'post', 'created']
+        fields = ['id', 'body', 'owner',  'post', 'created', 'image', "author"]
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -16,7 +16,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ["id", "title", "author", "excerpt",
+        fields = ["id", 'image', "title", "author", "excerpt",
                   "content", "status", "slug", "category", "comments"]
 
 
