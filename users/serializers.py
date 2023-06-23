@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from blog_api.serializers import CommentSerializer, PostSerializer
 from users.models import NewUser
 
 
@@ -23,3 +24,12 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class userSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+    blog_posts = PostSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = NewUser
+        fields = ["id", 'user_name', "blog_posts", "comments", 'about']

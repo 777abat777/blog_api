@@ -153,7 +153,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://777abat777.github.io/"
+    "https://777abat777.github.io"
 ]
 
 # custom user model
