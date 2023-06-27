@@ -17,7 +17,7 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = ["id", 'image', "title", "author", "excerpt",
-                  "content", "status", "slug", "category", "comments"]
+                  "content", "status", "slug", "category", "comments", "published"]
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
